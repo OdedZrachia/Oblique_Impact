@@ -10,9 +10,10 @@
 <div id="box" style="max-width: 800px; aspect-ratio: 4 / 3; margin: 0 auto;"></div>
 <script>
 var board = JXG.JSXGraph.initBoard('box', {
+var board = JXG.JSXGraph.initBoard('box', {
   boundingbox: [-58, 40, 62, -50],
   keepAspectRatio: true,
-  axis: true,
+  axis: false,
   showCopyright: false,
   showNavigation: false
 });
@@ -27,6 +28,75 @@ var B  = [a[0] + 2 * radius * 0.6, a[1] + 2 * radius * 0.8];             // (3.6
 var ap = [a[0] - s_l * 0.8, a[1] + s_l * 0.6];                           // (-20, 15)
 var b  = [B[0] + s_n * 0.6, B[1] + s_n * 0.8];                           // (23.4, 31.2)
 var c  = [a[0] - s_n * 0.6, a[1] - s_n * 0.8];                           // (-19.8, -26.4)
+var ball = { strokeColor: 'black', strokeWidth: 1, fixed: true, highlight: false };
+
+board.create('circle', [A, radius], ball);
+board.create('circle', [a, radius], ball);
+board.create('circle', [ap, radius], ball);
+board.create('circle', [B, radius], ball);
+board.create('circle', [b, radius], ball);
+function toward(P, Q, d) {
+  var len = Math.hypot(Q[0] - P[0], Q[1] - P[1]);
+  return [P[0] + d * (Q[0] - P[0]) / len, P[1] + d * (Q[1] - P[1]) / len];
+}
+
+var path = { strokeColor: 'black', strokeWidth: 1.5, fixed: true, highlight: false };
+
+var in_start   = toward(A, a, radius);
+var in_end     = toward(a, A, radius);
+var outA_start = toward(a, ap, radius);
+var outA_end   = toward(ap, a, radius);
+var outB_start = toward(B, b, radius);
+var outB_end   = toward(b, B, radius);
+
+board.create('segment', [in_start, in_end], path);
+board.create('segment', [outA_start, outA_end], path);
+board.create('segment', [outB_start, outB_end], path);
+var dotted = { strokeColor: 'black', strokeWidth: 1, dash: 1, fixed: true, highlight: false };
+
+board.create('segment', [A, in_start], dotted);
+board.create('segment', [in_end, a], dotted);
+board.create('segment', [a, outA_start], dotted);
+board.create('segment', [outA_end, ap], dotted);
+board.create('segment', [B, outB_start], dotted);
+board.create('segment', [outB_end, b], dotted);
+board.create('segment', [a, B], dotted);
+var dashed  = { strokeColor: 'black', strokeWidth: 1, dash: 2, fixed: true, highlight: false };
+var dashdot = { strokeColor: 'black', strokeWidth: 1, dash: 6, fixed: true, highlight: false };
+
+var Cut77  = toward(A, c, radius);
+var Cut83  = toward(a, c, radius);
+var Cut89  = toward(ap, b, radius);
+var Cut91  = toward(b, ap, radius);
+var Cut99  = toward(A, B, radius);
+var Cut101 = toward(B, A, radius);
+
+// lateral component, A to c
+board.create('segment', [A, Cut77], dotted);
+board.create('segment', [Cut77, c], dashed);
+
+// perpendicular component, c to a
+board.create('segment', [c, Cut83], dashed);
+board.create('segment', [Cut83, a], dotted);
+
+// final separation, ap to b
+board.create('segment', [ap, Cut89], dotted);
+board.create('segment', [Cut89, Cut91], dashed);
+board.create('segment', [Cut91, b], dotted);
+
+// initial separation, A to B
+board.create('segment', [A, Cut99], dotted);
+board.create('segment', [Cut99, Cut101], dashdot);
+board.create('segment', [Cut101, B], dotted);
+var label  = { anchorX: 'middle', anchorY: 'middle', fontSize: 16, cssStyle: 'font-family: serif;', fixed: true, highlight: false };
+var italic = { anchorX: 'middle', anchorY: 'middle', fontSize: 16, cssStyle: 'font-family: serif; font-style: italic;', fixed: true, highlight: false };
+
+board.create('text', [A[0], A[1], 'A'], label);
+board.create('text', [a[0], a[1], 'a'], label);
+board.create('text', [ap[0], ap[1], 'a'], italic);
+board.create('text', [B[0], B[1], 'B'], label);
+board.create('text', [b[0], b[1], 'b'], label);
+board.create('text', [c[0] - 1.2, c[1] - 0.1, 'c'], label);
   
 </script>
 </body>
