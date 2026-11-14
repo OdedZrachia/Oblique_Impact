@@ -17,11 +17,16 @@ var board = JXG.JSXGraph.initBoard('box', {
   showNavigation: false
 });
 
-var s_l = 25;
-var s_n = 33;
-var radius = 3;
-var a = [0, 0];
-var A = [a[0] + s_l * 0.8 - s_n * 0.6, a[1] - s_l * 0.6 - s_n * 0.8];
+var s_l = 25;      // lateral component
+var s_n = 33;      // perpendicular component
+var radius = 3;    // ball radius
+
+var a  = [0, 0];
+var A  = [a[0] + s_l * 0.8 - s_n * 0.6, a[1] - s_l * 0.6 - s_n * 0.8];   // (0.2, -41.4)
+var B  = [a[0] + 2 * radius * 0.6, a[1] + 2 * radius * 0.8];             // (3.6, 4.8)
+var ap = [a[0] - s_l * 0.8, a[1] + s_l * 0.6];                           // (-20, 15)
+var b  = [B[0] + s_n * 0.6, B[1] + s_n * 0.8];                           // (23.4, 31.2)
+var c  = [a[0] - s_n * 0.6, a[1] - s_n * 0.8];                           // (-19.8, -26.4)
   
 </script>
 </body>
