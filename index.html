@@ -9,24 +9,39 @@
 <body>
 <div id="box" style="max-width: 800px; aspect-ratio: 4 / 3; margin: 0 auto;"></div>
 <script>
-var board = JXG.JSXGraph.initBoard('box', {
-  boundingbox: [-58, 40, 62, -50],
+var board;
+var slider = document.getElementById('angle');
+
+function draw() {
+
+if (board) { JXG.JSXGraph.freeBoard(board); }
+
+board = JXG.JSXGraph.initBoard('box', {
+  boundingbox: [-48, 53, 52, -47],
   keepAspectRatio: true,
   axis: false,
   showCopyright: false,
   showNavigation: false
 });
 
-var s_l = 25;      // lateral component
-var s_n = 33;      // perpendicular component
-var radius = 3;    // ball radius
+document.getElementById('angleValue').textContent = slider.value + '°';
+
+var theta = slider.value * Math.PI / 180;      // obliquity, from degrees to radians
+var u = Math.hypot(25, 33);                    // speed of A before impact: the length of Aa in your construction
+var n = [Math.sin(theta), Math.cos(theta)];    // direction of the line of centres, from a towards B
+var t = [-Math.cos(theta), Math.sin(theta)];   // lateral direction
+
+var s_l = u * Math.sin(theta);   // lateral component
+var s_n = u * Math.cos(theta);   // perpendicular component
+var radius = 3;                  // ball radius
 
 var a  = [0, 0];
-var A  = [a[0] + s_l * 0.8 - s_n * 0.6, a[1] - s_l * 0.6 - s_n * 0.8];   // (0.2, -41.4)
-var B  = [a[0] + 2 * radius * 0.6, a[1] + 2 * radius * 0.8];             // (3.6, 4.8)
-var ap = [a[0] - s_l * 0.8, a[1] + s_l * 0.6];                           // (-20, 15)
-var b  = [B[0] + s_n * 0.6, B[1] + s_n * 0.8];                           // (23.4, 31.2)
-var c  = [a[0] - s_n * 0.6, a[1] - s_n * 0.8];                           // (-19.8, -26.4)
+var A  = [a[0] - s_l * t[0] - s_n * n[0], a[1] - s_l * t[1] - s_n * n[1]];
+var B  = [a[0] + 2 * radius * n[0], a[1] + 2 * radius * n[1]];
+var ap = [a[0] + s_l * t[0], a[1] + s_l * t[1]];
+var b  = [B[0] + s_n * n[0], B[1] + s_n * n[1]];
+var c  = [a[0] - s_n * n[0], a[1] - s_n * n[1]];
+
 var ball = { strokeColor: 'black', strokeWidth: 1, fixed: true, highlight: false };
 
 board.create('circle', [A, radius], ball);
@@ -34,6 +49,7 @@ board.create('circle', [a, radius], ball);
 board.create('circle', [ap, radius], ball);
 board.create('circle', [B, radius], ball);
 board.create('circle', [b, radius], ball);
+
 function toward(P, Q, d) {
   var len = Math.hypot(Q[0] - P[0], Q[1] - P[1]);
   return [P[0] + d * (Q[0] - P[0]) / len, P[1] + d * (Q[1] - P[1]) / len];
@@ -51,6 +67,7 @@ var outB_end   = toward(b, B, radius);
 board.create('segment', [in_start, in_end], path);
 board.create('segment', [outA_start, outA_end], path);
 board.create('segment', [outB_start, outB_end], path);
+
 var dotted = { strokeColor: 'black', strokeWidth: 1, dash: 1, fixed: true, highlight: false };
 
 board.create('segment', [A, in_start], dotted);
@@ -60,6 +77,7 @@ board.create('segment', [outA_end, ap], dotted);
 board.create('segment', [B, outB_start], dotted);
 board.create('segment', [outB_end, b], dotted);
 board.create('segment', [a, B], dotted);
+
 var dashed  = { strokeColor: 'black', strokeWidth: 1, dash: 2, fixed: true, highlight: false };
 var dashdot = { strokeColor: 'black', strokeWidth: 1, dash: 6, fixed: true, highlight: false };
 
@@ -87,6 +105,7 @@ board.create('segment', [Cut91, b], dotted);
 board.create('segment', [A, Cut99], dotted);
 board.create('segment', [Cut99, Cut101], dashdot);
 board.create('segment', [Cut101, B], dotted);
+
 var label  = { anchorX: 'middle', anchorY: 'middle', fontSize: 16, cssStyle: 'font-family: serif;', fixed: true, highlight: false };
 var italic = { anchorX: 'middle', anchorY: 'middle', fontSize: 16, cssStyle: 'font-family: serif; font-style: italic;', fixed: true, highlight: false };
 
@@ -96,6 +115,11 @@ board.create('text', [ap[0], ap[1], 'a'], italic);
 board.create('text', [B[0], B[1], 'B'], label);
 board.create('text', [b[0], b[1], 'b'], label);
 board.create('text', [c[0] - 1.2, c[1] - 0.1, 'c'], label);
+
+}
+
+slider.addEventListener('input', draw);
+draw();
   
 </script>
 </body>
