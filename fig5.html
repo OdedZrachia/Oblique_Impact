@@ -215,7 +215,7 @@ if (!equal) {
 function tick(P) {
   board.create('segment', [[P[0] - 1.2 * k, P[1] + 1.2 * s], [P[0] + 1.2 * k, P[1] - 1.2 * s]], look(black, 0, 1));
 }
-
+}
 // the moving bodies: where A and B are at the time tau; they show only once Play has been pressed
 function between(P, Q, x) {
   return [P[0] + x * (Q[0] - P[0]), P[1] + x * (Q[1] - P[1])];
