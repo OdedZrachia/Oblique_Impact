@@ -34,7 +34,9 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin:
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="2"/></svg> A before impact (Aa)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="2"/></svg> A after impact (<span id="keyA">aL</span>)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="2"/></svg> B after impact (<span id="keyB">BI</span>)</span>
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1.5" stroke-dasharray="5 4"/></svg> construction lines (<span id="keyLines">AD, Da, HL</span>)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="1.5" stroke-dasharray="5 4"/></svg> lateral component (AD)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="1.5" stroke-dasharray="5 4"/></svg> perpendicular component (Da)</span>
+<span id="keyHL"><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1.5" stroke-dasharray="5 4"/></svg> construction line (HL)</span>
 </p>
 <table class="quantities">
 <tr style="border-bottom: 1px solid #5a6577;"><th style="text-align: left; font-weight: normal;">Quantity of motion</th><th style="text-align: right; font-weight: normal;">before impact</th><th style="text-align: right; font-weight: normal;">after impact</th></tr>
@@ -180,8 +182,8 @@ if (equal) {
 clipped(F, H, grey, 1);        // the line joining F and H
 
 // the construction lines
-board.create('segment', [a, D], look(grey, 2, 1.5));     // perpendicular component
-board.create('segment', [A, D], look(grey, 2, 1.5));     // lateral component
+board.create('segment', [a, D], look(orange, 2, 1.5));   // perpendicular component
+board.create('segment', [A, D], look(blue, 2, 1.5));     // lateral component
 if (!equal) {
   board.create('segment', [H, L], look(grey, 2, 1.5));   // A's reversed perpendicular motion, joined to aH
 }
@@ -235,8 +237,7 @@ function show(id, text) { document.getElementById(id).textContent = text; }
 
 show('keyA', equal ? 'aH' : 'aL');
 show('keyB', equal ? 'BF' : 'BI');
-show('keyEqual', equal ? 'line joining F and H' : 'were the bodies equal (aH, BF, HF)');
-show('keyLines', equal ? 'AD, Da' : 'AD, Da, HL');
+document.getElementById('keyHL').hidden = equal;
 show('qA', w_A + ' × ' + v_A.toFixed(1) + ' = ' + (w_A * v_A).toFixed(1));
 show('qB', w_B + ' × ' + v_B.toFixed(1) + ' = ' + (w_B * v_B).toFixed(1));
 show('qSum', Q_1.toFixed(1));
