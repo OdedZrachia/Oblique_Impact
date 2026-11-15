@@ -23,11 +23,11 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin:
 </head>
 <body>
 <div class="page">
-<p class="caption"><i>Figure 5</i>. Simplified construction fig. 22 from the third edition of <i>Traitté de la percussion</i> (1684) by <a href = "https://en.wikipedia.org/wiki/Edme_Mariotte">Edme Mariotte</a>, showing an oblique collision with a body initially at rest.</p>
+<p class="caption"><i>Figure 5</i>. Simplified construction of fig. 22 from the third edition of <i>Traitté de la percussion</i> (1684) by <a href = "https://en.wikipedia.org/wiki/Edme_Mariotte">Edme Mariotte</a>, showing an oblique collision with a body initially at rest.</p>
 <div class="columns">
 
 <div class="figure">
-<p class="controls">Obliquity: <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
+<p class="controls"><label for="angle" title="Angle between the incoming path and the line of centres">Angle to line of centres:</label> <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
 <p class="controls"><label><input type="radio" name="weights" id="three" checked> B three times as heavy as A</label> <label style="margin-left: 1em;"><input type="radio" name="weights" id="equal"> A and B equal</label></p>
 <div id="box"></div>
 <p class="legend">
@@ -44,6 +44,7 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin:
 <tr><td>B</td><td style="text-align: right;">at rest: 0</td><td style="text-align: right;" id="qB"></td></tr>
 <tr style="border-top: 1px solid #5a6577;"><td>Sum</td><td style="text-align: right;">100</td><td style="text-align: right;" id="qSum"></td></tr>
 </table>
+<p style="font-size: 14px;">Values are rounded; totals are calculated before rounding.</p>
 </div>
 
 <div class="reading">
@@ -52,10 +53,10 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin:
 <li>Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</li>
 <li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is DaF.</li>
 <li>A’s incoming motion resolves into the lateral AD, parallel to the common tangent at contact, and the perpendicular Da, along the line of centres.</li>
-<li>With B three times as heavy as A, Mariotte’s rules for direct impact give B only half the perpendicular speed, so it moves to I (BI = IF = Da/2).</li>
+<li>Were the bodies equal, B would receive the whole perpendicular component and move to F (BF = Da). With B three times as heavy as A, Mariotte’s rules for direct impact give B half that speed, so it moves to I (BI = IF = Da/2).</li>
 <li>A retains its lateral component (aH = AD), while its perpendicular component is reversed and halved (aC = Da/2). Combining aH with HL, drawn parallel and equal to aC, gives aL, A’s outgoing speed and direction.</li>
-<li>Taken without regard to direction, the total quantity of motion increases: after impact it is proportional to aL + 3BI, before it to Aa.</li>
-<li>With Aa held fixed, a more grazing encounter (slider to the right) leaves A almost all its speed and changes its direction only slightly, while B still gains more quantity of motion than A loses.</li>
+<li>Taken without regard to direction, the total quantity of motion is proportional to Aa before impact and to aL + 3BI afterwards. Both outgoing contributions exceed the corresponding sides of the incoming triangle ADa: aL exceeds AD because it is the hypotenuse of the right-angled triangle aHL, whose side aH equals AD; and 3BI = 3Da/2 exceeds Da. Their sum therefore exceeds AD + Da, which itself exceeds Aa. B thus gains more quantity of motion than A loses.</li>
+<li>With Aa held fixed, increasingly grazing contact (slider to the right) makes A’s outgoing speed approach its incoming speed and its change of direction approach zero. B continues to gain more quantity of motion than A loses, although the surplus also approaches zero in the grazing limit.</li>
 </ol>
 
 <ol class="ifEqual">
@@ -64,10 +65,10 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin:
 <li>A’s incoming motion resolves into the lateral AD, parallel to the common tangent at contact, and the perpendicular Da, along the line of centres.</li>
 <li>The bodies being equal, B takes the whole of Da and moves to F (BF = Da).</li>
 <li>A, keeping AD alone, moves to H (aH = AD), so that the two depart at right angles.</li>
-<li>Taken without regard to direction, the total quantity of motion increases: after impact it is proportional to aH + BF, before it to Aa.</li>
-<li>With Aa held fixed, a more grazing encounter (slider to the right) leaves A almost all its speed and changes its direction only slightly, while B still gains more quantity of motion than A loses.</li>
+<li>With equal weights, the total quantity of motion, taken without regard to direction, is proportional to Aa before impact and to aH + BF = AD + Da afterwards. These two sides of the right-angled triangle ADa together exceed its hypotenuse Aa, so the total increases.</li>
+<li>With Aa held fixed, increasingly grazing contact (slider to the right) makes A’s outgoing speed approach its incoming speed and its change of direction approach zero. B continues to gain more quantity of motion than A loses, although the surplus also approaches zero in the grazing limit.</li>
 </ol>
-<p>Each body's quantity of motion is the product of weight and speed, with A’s weight taken as 1. Mariotte gives no reckoning of the quantity of motion in this proposition (II, prop. III, 213–17); the sums are taken here without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
+<p>Each body’s quantity of motion is the product of weight and speed, with A’s weight taken as 1 and its incoming speed as 100. Mariotte gives no reckoning of the quantity of motion in this proposition (II, prop. III, 213–17); the sums are taken here without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
 </div>
 
 </div>
@@ -240,9 +241,9 @@ function show(id, text) { document.getElementById(id).textContent = text; }
 show('keyA', equal ? 'aH' : 'aL');
 show('keyB', equal ? 'BF' : 'BI');
 document.getElementById('keyHL').hidden = equal;
-show('qA', w_A + ' × ' + v_A.toFixed(1) + ' = ' + (w_A * v_A).toFixed(1));
-show('qB', w_B + ' × ' + v_B.toFixed(1) + ' = ' + (w_B * v_B).toFixed(1));
-show('qSum', Q_1.toFixed(1));
+show('qA', w_A + ' × ' + v_A.toFixed(1) + ' ≈ ' + (w_A * v_A).toFixed(1));
+show('qB', w_B + ' × ' + v_B.toFixed(1) + ' ≈ ' + (w_B * v_B).toFixed(1));
+show('qSum', '≈ ' + Q_1.toFixed(1));
 
 Array.prototype.forEach.call(document.querySelectorAll('.ifThree'), function (item) { item.hidden = equal; });
 Array.prototype.forEach.call(document.querySelectorAll('.ifEqual'), function (item) { item.hidden = !equal; });
