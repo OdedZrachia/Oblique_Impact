@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Figure 4</title>
+<title>Figure 4 — Pardies’s oblique impact</title>
 <style>
 body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
-.page { max-width: 1080px; margin: 0 auto; }
+.page { max-width: 1180px; margin: 0 auto; }
 .caption { margin: 1em 0; }
 .columns { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px 40px; }
-.figure { flex: 1 1 460px; min-width: 0; max-width: 600px; }
+.figure { flex: 2 1 520px; min-width: 0; max-width: 700px; }
 .reading { flex: 1 1 340px; min-width: 0; }
 .controls { text-align: center; margin: 0.5em 0; }
+.control-note { text-align: center; font-size: 14px; margin: 0.5em 0; }
+.figure-nav { margin: 1em 0; }
 #box { width: 100%; aspect-ratio: 1 / 1; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 14px; margin: 0.5em 0; }
 .reading h2 { font-size: 1.15em; margin: 0 0 0.5em; }
@@ -22,12 +24,13 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 </head>
 <body>
 <div class="page">
-<p class="caption"><i>Figure 4</i>. Simplified construction of the upper-left diagram on the plate marked “§ 28. page 68” in <i>Discours du mouvement local</i> (1670) by <a href="https://en.wikipedia.org/wiki/Ignace-Gaston_Pardies">Ignace-Gaston Pardies</a>, showing an oblique collision with a body initially at rest.</p>
+<p class="caption"><i>Figure 4</i>. Simplified construction of the upper-left diagram on the plate marked “§ 28. page 68” in Pardies’s <i>Discours du mouvement local</i> (1670), showing an oblique collision with a body initially at rest.</p>
 <div class="columns">
 
 <div class="figure">
-<p class="controls">Obliquity: <input type="range" id="angle" min="10" max="80" value="37"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
-<div id="box"></div>
+<p class="controls"><label for="angle" title="Angle between the incoming path and the line of centres">Angle to line of centres:</label> <input type="range" id="angle" min="10" max="80" value="37" aria-describedby="angleHelp"> <output id="angleValue" for="angle"></output> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
+<p class="control-note" id="angleHelp">0°: direct impact; 90°: grazing limit. Move right for more grazing contact.</p>
+<div id="box" role="img" aria-label="Pardies’s construction of oblique impact: the incoming motion Aa, lateral component Ac, perpendicular component ca, and outgoing motions of A and B."></div>
 <p class="legend">
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="2"/></svg> A before impact (Aa)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="2"/></svg> A after impact (a<i>a</i>)</span>
@@ -39,20 +42,21 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 </div>
 
 <div class="reading">
-<h2>Reading the Figure</h2>
+<h2>Reading the figure</h2>
 <ol>
 <li>Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</li>
-<li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is bac.</li>
-<li>A’s incoming motion resolves into the lateral Ac, parallel to the common tangent at contact, and the perpendicular ca, along the line of centres.</li>
-<li>Under Pardies’s rule, A retains its lateral component and communicates its perpendicular component to B (§28): A moves to <i>a</i> (a<i>a</i> = Ac) and B to b (Bb = ca).</li>
+<li>Body A moves along Aa towards the stationary body B. At impact, their centres occupy the points labelled a and B. The line of centres is extended beyond a to c, where it meets the perpendicular drawn from A.</li>
+<li>A’s incoming motion resolves into the lateral component Ac, parallel to the common tangent at contact, and the perpendicular component ca, along the line of centres.</li>
+<li>Under Pardies’s rule, A retains its lateral component and communicates its perpendicular component to B (§28). A therefore continues along a<i>a</i>, equal and parallel to Ac, while B moves along the extended line of centres towards b, with Bb equal to ca.</li>
 <li>Since Ac + ca &gt; Aa, the sum of the bodies’ speeds, which Pardies treats as their “absolute motion” (§§29, 31), increases.</li>
-<li>For equal intervals before and after impact, the initial separation AB equals the final separation <i>a</i>b, illustrating the conservation of “respective motion” (§29).</li>
-<li>With Aa held fixed, a more grazing contact (slider to the right) narrows the angle between Aa and Ac and brings their lengths closer together.</li>
-<li>On Pardies’s understanding of indifference, bodies offer no intrinsic resistance to being set in motion, whatever their size. He therefore takes the rules to hold <i>in vacuo</i>, “whether the Bodies be Equal or not” (§31).</li>
+<li>With Aa held fixed, contact becomes increasingly grazing as the angle between the incoming path and the line of centres approaches 90°. The perpendicular component ca then approaches zero, while the lateral component Ac approaches Aa. Consequently, A’s outgoing speed approaches its incoming speed, and its change of direction tends to zero.</li>
+<li>For equal intervals before and after impact, the initial centre-to-centre separation AB equals the final separation <i>a</i>b, illustrating the conservation of “respective motion” (§29).</li>
 </ol>
+<p>On Pardies’s understanding of indifference, bodies offer no intrinsic resistance to being set in motion, whatever their size. He therefore takes the rules to hold <i>in vacuo</i>, “whether the Bodies be Equal or not” (§31).</p>
 </div>
 
 </div>
+<nav class="figure-nav" aria-label="Related figure"><a href="fig5.html">Figure 5: Mariotte’s oblique impact</a></nav>
 </div>
 <script>
 var board;
@@ -74,8 +78,8 @@ board = JXG.JSXGraph.initBoard('box', {
 
 document.getElementById('angleValue').textContent = slider.value + '°';
 
-var theta = slider.value * Math.PI / 180;      // obliquity, from degrees to radians
-var u = Math.hypot(25, 33);                    // speed of A before impact: the length of Aa in your construction
+var theta = slider.value * Math.PI / 180;      // angle between the incoming path and the line of centres
+var u = Math.hypot(25, 33);                    // fixed incoming speed, represented by Aa
 var n = [Math.sin(theta), Math.cos(theta)];    // direction of the line of centres, from a towards B
 var t = [-Math.cos(theta), Math.sin(theta)];   // lateral direction
 
@@ -185,7 +189,7 @@ function between(P, Q, s) {
 function whereA() { return tau < 1 ? between(A, a, tau) : between(a, ap, tau - 1); }
 function whereB() { return tau < 1 ? B : between(B, b, tau - 1); }
 
-var body = { strokeColor: black, strokeWidth: 1, fillColor: black, fillOpacity: 0.25, fixed: true, highlight: false };
+var body = { strokeColor: black, strokeWidth: 1, fillColor: black, fillOpacity: 0.25, fixed: true, highlight: false, visible: function () { return tau > 0; } };
 var centreA = board.create('point', [function () { return whereA()[0]; }, function () { return whereA()[1]; }], { visible: false });
 var centreB = board.create('point', [function () { return whereB()[0]; }, function () { return whereB()[1]; }], { visible: false });
 

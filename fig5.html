@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Figure 5</title>
+<title>Figure 5 — Mariotte’s oblique impact</title>
 <style>
 body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 .page { max-width: 1180px; margin: 0 auto; }
@@ -12,9 +12,15 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 .figure { flex: 2 1 520px; min-width: 0; max-width: 700px; }
 .reading { flex: 1 1 340px; min-width: 0; }
 .controls { text-align: center; margin: 0.5em 0; }
+.control-note { text-align: center; font-size: 14px; margin: 0.5em 0; }
+.figure-nav { margin: 1em 0; }
 #box { width: 100%; aspect-ratio: 3 / 2; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 14px; margin: 0.5em 0; }
 .quantities { width: 100%; margin: 1em 0; border-collapse: collapse; font-size: 15px; }
+.quantities caption { text-align: left; margin-bottom: 0.35em; }
+.quantities th, .quantities td { padding: 0.3em 0.25em; text-align: right; font-weight: normal; }
+.quantities th:first-child { text-align: left; }
+.quantities thead, .quantities .total { border-bottom: 1px solid #5a6577; }
 .reading h2 { font-size: 1.15em; margin: 0 0 0.5em; }
 .reading ol { margin: 0; padding-left: 1.4em; }
 .reading li { margin-bottom: 0.4em; }
@@ -23,13 +29,14 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 </head>
 <body>
 <div class="page">
-<p class="caption"><i>Figure 5</i>. Simplified construction of fig. 22 from the third edition of <i>Traitté de la percussion</i> (1684) by <a href = "https://en.wikipedia.org/wiki/Edme_Mariotte">Edme Mariotte</a>, showing an oblique collision with a body initially at rest.</p>
+<p class="caption"><i>Figure 5</i>. Simplified construction of fig. 22 from the third edition of Mariotte’s <i>Traitté de la percussion</i> (1684). <span id="weightCaption">The bodies’ weights are in the ratio A∶B = 1∶3.</span></p>
 <div class="columns">
 
 <div class="figure">
-<p class="controls"><label for="angle" title="Angle between the incoming path and the line of centres">Angle to line of centres:</label> <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
+<p class="controls"><label for="angle" title="Angle between the incoming path and the line of centres">Angle to line of centres:</label> <input type="range" id="angle" min="10" max="80" value="30" aria-describedby="angleHint"> <output id="angleValue" for="angle"></output> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
+<p class="control-note" id="angleHint">0°: direct impact; 90°: grazing limit. Move right for more grazing contact.</p>
 <p class="controls"><label><input type="radio" name="weights" id="three" checked> B three times as heavy as A</label> <label style="margin-left: 1em;"><input type="radio" name="weights" id="equal"> A and B equal</label></p>
-<div id="box"></div>
+<div id="box" role="img" aria-label="Mariotte’s construction of oblique impact, showing A’s incoming and outgoing motions and B’s outgoing motion."></div>
 <p class="legend">
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="2"/></svg> A before impact (Aa)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="2"/></svg> A after impact (<span id="keyA">aL</span>)</span>
@@ -39,39 +46,45 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 <span id="keyHL"><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1.5" stroke-dasharray="5 4"/></svg> construction line (HL)</span>
 </p>
 <table class="quantities">
-<tr style="border-bottom: 1px solid #5a6577;"><th style="text-align: left; font-weight: normal;">Quantity of motion</th><th style="text-align: right; font-weight: normal;">before impact</th><th style="text-align: right; font-weight: normal;">after impact</th></tr>
-<tr><td>A</td><td style="text-align: right;">1 × 100 = 100</td><td style="text-align: right;" id="qA"></td></tr>
-<tr><td>B</td><td style="text-align: right;">at rest: 0</td><td style="text-align: right;" id="qB"></td></tr>
-<tr style="border-top: 1px solid #5a6577;"><td>Sum</td><td style="text-align: right;">100</td><td style="text-align: right;" id="qSum"></td></tr>
+<caption>Quantity of motion, reckoned without regard to direction</caption>
+<thead><tr><th scope="col">Body</th><th scope="col">Before impact</th><th scope="col">After impact</th></tr></thead>
+<tbody>
+<tr><th scope="row">A</th><td>1 × 100 = 100</td><td id="qA"></td></tr>
+<tr><th scope="row">B</th><td>At rest: 0</td><td id="qB"></td></tr>
+<tr class="total"><th scope="row">Total</th><td>100</td><td id="qSum"></td></tr>
+<tr><th scope="row">Surplus</th><td>—</td><td id="qSurplus"></td></tr>
+</tbody>
 </table>
-<p style="font-size: 14px;">Values are rounded; totals are calculated before rounding.</p>
+<p style="font-size: 14px;">A’s weight is taken as 1 and its incoming speed as 100. Values are rounded; totals and the surplus are calculated before rounding.</p>
 </div>
 
 <div class="reading">
-<h2>Reading the Figure</h2>
+<h2>Reading the figure</h2>
 <ol class="ifThree">
 <li>Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</li>
-<li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is DaF.</li>
-<li>A’s incoming motion resolves into the lateral AD, parallel to the common tangent at contact, and the perpendicular Da, along the line of centres.</li>
-<li>With B three times as heavy as A, Mariotte’s rules for direct impact give B half that speed, so it moves to I (BI = IF = Da/2).</li>
-<li>A retains its lateral component (aH = AD), while its perpendicular component is reversed and halved (aC = Da/2). Combining aH with HL, drawn parallel and equal to aC, gives aL, A’s outgoing speed and direction.</li>
-<li>Taken without regard to direction, the total quantity of motion is proportional to Aa before impact and to aL + 3BI afterwards. Both outgoing contributions exceed the corresponding sides of the incoming triangle ADa: aL exceeds AD because it is the hypotenuse of the right-angled triangle aHL, whose side aH equals AD; and 3BI = 3Da/2 exceeds Da. Their sum therefore exceeds AD + Da, which itself exceeds Aa. B thus gains more quantity of motion than A loses.</li>
-<li>With Aa held fixed, increasingly grazing contact (slider to the right) makes A’s outgoing speed approach its incoming speed and its change of direction approach zero. B continues to gain more quantity of motion than A loses, although the surplus also approaches zero in the grazing limit.</li>
+<li>The lighter body A moves along Aa and strikes obliquely the heavier body B, initially at rest. At impact, their centres occupy the points labelled a and B; the line of centres is extended through D and F.</li>
+<li>A’s incoming motion resolves into the lateral component AD, parallel to the common tangent at contact, and the perpendicular component Da, along the line of centres, forming the right-angled triangle ADa.</li>
+<li>Were the bodies equal, B would move to F (BF = Da), while A would move to H (aH = AD).</li>
+<li>With B three times as heavy as A, Mariotte’s rules for direct impact give B half the perpendicular speed, so it moves to I (BI = IF = Da/2).</li>
+<li>A retains its lateral component (aH = AD), while its perpendicular component is reversed and halved (aC = Da/2). Combining aH with HL, drawn parallel and equal to aC, gives aL, which represents A’s outgoing speed and direction. As the hypotenuse of the right-angled triangle aHL, aL exceeds aH = AD.</li>
+<li>For this weight ratio, the total quantity of motion, reckoned without regard to direction, is proportional to Aa before impact and to aL + 3BI afterwards. Both terms of the outgoing sum exceed the corresponding sides of the incoming triangle ADa: aL exceeds AD, and 3BI = 3Da/2 exceeds Da. Their sum therefore exceeds AD + Da, which itself exceeds the hypotenuse Aa. B therefore gains more quantity of motion than A loses.</li>
+<li>Increasingly grazing contact brings the incoming path closer to a right angle with the line of centres. Da and HL then tend to zero, while AD = aH approaches the fixed incoming length Aa. A thus retains almost all its speed, and its deflection tends to zero. The surplus remains positive for every oblique impact but tends to zero in the grazing limit.</li>
 </ol>
 
 <ol class="ifEqual">
 <li>Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</li>
-<li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is DaF.</li>
-<li>A’s incoming motion resolves into the lateral AD, parallel to the common tangent at contact, and the perpendicular Da, along the line of centres.</li>
+<li>Body A moves along Aa and strikes obliquely body B, initially at rest. At impact, their centres occupy the points labelled a and B; the line of centres is extended through D and F.</li>
+<li>A’s incoming motion resolves into the lateral component AD, parallel to the common tangent at contact, and the perpendicular component Da, along the line of centres, forming the right-angled triangle ADa.</li>
 <li>The bodies being equal, B takes the whole of Da and moves to F (BF = Da).</li>
 <li>A, keeping AD alone, moves to H (aH = AD), so that the two depart at right angles.</li>
-<li>With equal weights, the total quantity of motion, taken without regard to direction, is proportional to Aa before impact and to aH + BF = AD + Da afterwards. These two sides of the right-angled triangle ADa together exceed its hypotenuse Aa, so the total increases.</li>
-<li>With Aa held fixed, increasingly grazing contact (slider to the right) makes A’s outgoing speed approach its incoming speed and its change of direction approach zero. B continues to gain more quantity of motion than A loses, although the surplus also approaches zero in the grazing limit.</li>
+<li>With equal weights, the total quantity of motion, reckoned without regard to direction, is proportional to Aa before impact and to aH + BF = AD + Da afterwards. These two sides of the right-angled triangle ADa together exceed its hypotenuse Aa, so the total increases. B therefore gains more quantity of motion than A loses.</li>
+<li>Increasingly grazing contact brings the incoming path closer to a right angle with the line of centres. Da then tends to zero, while AD = aH approaches the fixed incoming length Aa. A thus retains almost all its speed, and its deflection tends to zero. The surplus remains positive for every oblique impact but tends to zero in the grazing limit.</li>
 </ol>
-<p>Each body’s quantity of motion is the product of weight and speed, with A’s weight taken as 1 and its incoming speed as 100. Mariotte gives no reckoning of the quantity of motion in this proposition (II, prop. III, 213–17); the sums are taken here without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
+<p>Each body’s quantity of motion is the product of weight and speed. The calculator applies Mariotte’s rules in II, prop. III, 213–17; its numerical values are supplied for this reconstruction. The quantities are added without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
 </div>
 
 </div>
+<nav class="figure-nav" aria-label="Related figure"><a href="fig4.html">Figure 4: Pardies’s oblique impact</a></nav>
 </div>
 <script>
 var board;
@@ -240,10 +253,12 @@ function show(id, text) { document.getElementById(id).textContent = text; }
 
 show('keyA', equal ? 'aH' : 'aL');
 show('keyB', equal ? 'BF' : 'BI');
+show('weightCaption', equal ? 'The bodies’ weights are equal: A∶B = 1∶1.' : 'The bodies’ weights are in the ratio A∶B = 1∶3.');
 document.getElementById('keyHL').hidden = equal;
 show('qA', w_A + ' × ' + v_A.toFixed(1) + ' ≈ ' + (w_A * v_A).toFixed(1));
 show('qB', w_B + ' × ' + v_B.toFixed(1) + ' ≈ ' + (w_B * v_B).toFixed(1));
 show('qSum', '≈ ' + Q_1.toFixed(1));
+show('qSurplus', '≈ ' + (Q_1 - Q_0).toFixed(1));
 
 Array.prototype.forEach.call(document.querySelectorAll('.ifThree'), function (item) { item.hidden = equal; });
 Array.prototype.forEach.call(document.querySelectorAll('.ifEqual'), function (item) { item.hidden = !equal; });
