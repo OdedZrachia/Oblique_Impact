@@ -80,7 +80,7 @@ function draw() {
 if (board) { JXG.JSXGraph.freeBoard(board); }
 
 board = JXG.JSXGraph.initBoard('box', {
-  boundingbox: [-113, 86, 113, -65],
+  boundingbox: [-117, 84, 110, -68],
   keepAspectRatio: true,
   axis: false,
   showCopyright: false,
@@ -100,7 +100,7 @@ var s = Math.sin(rad);
 var k = Math.cos(rad);
 var u_n = u * s;                // perpendicular component, Da
 var u_t = u * k;                // lateral component, AD
-var r = 2.4;                    // ball radius
+var r = 5;                    // ball radius
 var n_A = u_n * (w_A - w_B) / (w_A + w_B);   // perpendicular speed of A after impact (negative when reversed)
 var n_B = 2 * w_A * u_n / (w_A + w_B);       // speed of B after impact
 var v_A = Math.sqrt(u_t * u_t + n_A * n_A);  // speed of A after impact
@@ -192,7 +192,7 @@ function letter(P, dx, dy, text, inBall, slanted) {
   board.create('text', [P[0] + dx, P[1] + dy, text], {
     anchorX: 'middle',
     anchorY: 'middle',
-    fontSize: inBall ? 11 : 15,
+    fontSize: inBall ? 16 : 15,
     strokeColor: slanted ? '#1c1c1f' : black,
     cssStyle: 'font-family: inherit;' + (slanted ? ' font-style: italic;' : ''),
     fixed: true, highlight: false
