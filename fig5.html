@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure 5</title>
+<style>
+body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; }
+</style>
+<script src="jsxgraphcore.js"></script>
+</head>
+<body>
+<p style="max-width: 720px; margin: 1em auto;">Figure 5. Simplified construction of Mariotte’s fig. 22.</p>
+<p style="text-align: center; margin: 0.5em auto;">Obliquity: <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button></p>
+<p style="text-align: center; margin: 0.5em auto;"><label><input type="radio" name="weights" id="three" checked> B three times as heavy as A</label> <label style="margin-left: 1em;"><input type="radio" name="weights" id="equal"> A and B equal</label></p>
+<div id="box" style="max-width: 720px; aspect-ratio: 3 / 2; margin: 0 auto;"></div>
+<p style="max-width: 720px; margin: 0.5em auto; display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 14px;">
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="2"/></svg> A before impact (Aa)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="2"/></svg> A after impact (<span id="keyA">aL</span>)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="2"/></svg> B after impact (<span id="keyB">BI</span>)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1"/></svg> <span id="keyEqual">were the bodies equal (aH, BF, HF)</span></span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1.5" stroke-dasharray="5 4"/></svg> construction lines (<span id="keyLines">AD, Da, HL</span>)</span>
+</p>
+<table style="max-width: 720px; width: 100%; margin: 1em auto; border-collapse: collapse; font-size: 15px;">
+<tr style="border-bottom: 1px solid #5a6577;"><th style="text-align: left; font-weight: normal;">Quantity of motion</th><th style="text-align: right; font-weight: normal;">before impact</th><th style="text-align: right; font-weight: normal;">after impact</th></tr>
+<tr><td>A</td><td style="text-align: right;">1 × 100 = 100</td><td style="text-align: right;" id="qA"></td></tr>
+<tr><td>B</td><td style="text-align: right;">at rest: 0</td><td style="text-align: right;" id="qB"></td></tr>
+<tr style="border-top: 1px solid #5a6577;"><td>Sum</td><td style="text-align: right;">100</td><td style="text-align: right;" id="qSum"></td></tr>
+</table>
+<div style="max-width: 720px; margin: 1em auto;">
+<ol>
+<li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is DaBF.</li>
+<li>A’s motion resolves into the lateral AD and the perpendicular Da.</li>
+<li class="ifThree">Were the bodies equal, B would take the whole of Da and move to F (BF = Da), while A, keeping AD alone, would move to H (aH = AD), the two departing at right angles.</li>
+<li class="ifThree">With B three times as heavy as A, Mariotte’s rules for direct impact give B only half the perpendicular speed, so it moves to I (BI = IF = Da/2). A retains its lateral component (aH = AD), while its perpendicular component is reversed and halved (aC = Da/2). Combining aH with HL, drawn parallel and equal to aC, gives aL, A’s outgoing speed and direction.</li>
+<li class="ifEqual">The bodies being equal, B takes the whole of Da and moves to F (BF = Da), while A, keeping AD alone, moves to H (aH = AD), the two departing at right angles.</li>
+<li>Taken without regard to direction, the total quantity of motion increases: after impact it is proportional to <span id="noteSum">aL + 3BI</span>, before it to Aa.</li>
+<li>With Aa held fixed, a more grazing encounter (slider to the right) leaves A almost all its speed and changes its direction only slightly, while B still gains more quantity of motion than A loses.</li>
+</ol>
+<p>Lengths are proportional to speeds. Each quantity of motion is the product of weight and speed, with A’s weight taken as 1. Mariotte gives no reckoning of the quantity of motion in this proposition (II, prop. III, 213–17); the sums are taken here without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
+</div>
+<script>
+var board;
+var slider = document.getElementById('angle');
+var tau = 0;        // time: 0 at the start, 1 at the moment of impact, 2 at the end
+var timer = null;   // the running animation, if any
+
+function draw() {
+
+if (board) { JXG.JSXGraph.freeBoard(board); }
+
+board = JXG.JSXGraph.initBoard('box', {
+  boundingbox: [-113, 86, 113, -65],
+  keepAspectRatio: true,
+  axis: false,
+  showCopyright: false,
+  showNavigation: false
+});
+
+document.getElementById('angleValue').textContent = slider.value + '°';
+
+// the numbers of your construction, with your names
+var equal = document.getElementById('equal').checked;
+var w_A = 1;                    // weight of A
+var w_B = equal ? 1 : 3;        // weight of B
+var u = 100;                    // speed of A before impact
+var theta = 90 - slider.value;  // your angle, measured from the tangent; the slider gives the angle from the line of centres
+var rad = theta * Math.PI / 180;
+var s = Math.sin(rad);
+var k = Math.cos(rad);
+var u_n = u * s;                // perpendicular component, Da
+var u_t = u * k;                // lateral component, AD
+var r = 2.4;                    // ball radius
+var n_A = u_n * (w_A - w_B) / (w_A + w_B);   // perpendicular speed of A after impact (negative when reversed)
+var n_B = 2 * w_A * u_n / (w_A + w_B);       // speed of B after impact
+var v_A = Math.sqrt(u_t * u_t + n_A * n_A);  // speed of A after impact
+var v_B = Math.abs(n_B);
+var Q_0 = w_A * u;                           // quantity of motion before impact
+var Q_1 = w_A * v_A + w_B * v_B;             // quantity of motion after impact
+
+// the points
+var a = [0, 0];
+var A = [u, 0];
+var B = [a[0] - 2 * r * s, a[1] - 2 * r * k];
+var D = [a[0] + u_n * s, a[1] + u_n * k];
+var H = [a[0] - u_t * k, a[1] + u_t * s];
+var F = [B[0] - u_n * s, B[1] - u_n * k];
+var I = [B[0] - n_B * s, B[1] - n_B * k];
+var C = [a[0] - n_A * s, a[1] - n_A * k];
+var L = [H[0] - n_A * s, H[1] - n_A * k];
+
+// colours
+var black  = 'black';     // A before impact
+var blue   = '#1b57a8';   // A after impact
+var orange = '#b4560a';   // B after impact
+var grey   = '#5a6577';   // the equal case, and the construction lines
+
+// line styles: 0 solid, 1 dotted, 2 dashed
+function look(colour, dash, width) {
+  return { strokeColor: colour, strokeWidth: width, dash: dash, fixed: true, highlight: false };
+}
+
+// the five balls: A, a and B at the moment of impact, and A and B after it
+var centres = [A, a, B, L, I];
+centres.forEach(function (P) { board.create('circle', [P, r], look(black, 0, 1)); });
+
+// a line from P to Q, drawn dotted wherever it runs inside a ball
+function clipped(P, Q, colour, width) {
+  var dx = Q[0] - P[0], dy = Q[1] - P[1];
+  var length2 = dx * dx + dy * dy;
+  if (length2 < 1e-9) { return; }
+  function at(x) { return [P[0] + x * dx, P[1] + x * dy]; }
+  var breaks = [0, 1];
+  centres.forEach(function (M) {
+    var p = ((M[0] - P[0]) * dx + (M[1] - P[1]) * dy) / length2;
+    var d = r * r / length2 - ((M[0] - P[0]) * (M[0] - P[0]) + (M[1] - P[1]) * (M[1] - P[1])) / length2 + p * p;
+    if (d > 0) {
+      breaks.push(Math.min(1, Math.max(0, p - Math.sqrt(d))));
+      breaks.push(Math.min(1, Math.max(0, p + Math.sqrt(d))));
+    }
+  });
+  breaks.sort(function (x, y) { return x - y; });
+  for (var i = 0; i < breaks.length - 1; i++) {
+    if (breaks[i + 1] - breaks[i] < 1e-9) { continue; }
+    var middle = at((breaks[i] + breaks[i + 1]) / 2);
+    var inside = centres.some(function (M) { return Math.hypot(middle[0] - M[0], middle[1] - M[1]) < r; });
+    board.create('segment', [at(breaks[i]), at(breaks[i + 1])], look(colour, inside ? 1 : 0, inside ? 1.5 : width));
+  }
+}
+
+// A before impact, and the line of centres at the moment of impact
+clipped(A, a, black, 2);
+clipped(B, a, grey, 1);
+
+if (equal) {
+  clipped(a, H, blue, 2);      // A after impact
+  clipped(B, F, orange, 2);    // B after impact
+} else {
+  clipped(a, H, grey, 1);      // A, were the bodies equal
+  clipped(I, F, grey, 1);      // B, were the bodies equal: the rest of BF beyond I
+  clipped(a, L, blue, 2);      // A after impact
+  clipped(B, I, orange, 2);    // B after impact
+}
+clipped(F, H, grey, 1);        // the line joining F and H
+
+// the construction lines
+board.create('segment', [a, D], look(grey, 2, 1.5));     // perpendicular component
+board.create('segment', [A, D], look(grey, 2, 1.5));     // lateral component
+if (!equal) {
+  board.create('segment', [H, L], look(grey, 2, 1.5));   // A's reversed perpendicular motion, joined to aH
+}
+
+// the labels
+function letter(P, dx, dy, text, inBall, slanted) {
+  board.create('text', [P[0] + dx, P[1] + dy, text], {
+    anchorX: 'middle',
+    anchorY: 'middle',
+    fontSize: inBall ? 11 : 15,
+    cssStyle: 'font-family: inherit;' + (slanted ? ' font-style: italic;' : ''),
+    fixed: true, highlight: false
+  });
+}
+
+letter(A, 0, 0, 'A', true, false);
+letter(a, 0, 0, 'a', true, false);
+letter(B, 0, 0, 'B', true, false);
+letter(L, 0, 0, 'a', true, true);
+letter(I, 0, 0, 'b', true, true);
+letter(D, 1, 4, 'D', false, false);
+letter(H, -5, 3, 'H', false, false);
+letter(F, -3, -3, 'F', false, false);
+if (!equal) {
+  letter(C, -3, 3, 'C', false, false);
+  letter(I, 0, -5.5, 'I', false, false);
+  letter(L, 5, 2, 'L', false, false);
+}
+
+// the moving bodies: where A and B are at the time tau; they show only once Play has been pressed
+function between(P, Q, x) {
+  return [P[0] + x * (Q[0] - P[0]), P[1] + x * (Q[1] - P[1])];
+}
+function whereA() { return tau < 1 ? between(A, a, tau) : between(a, L, tau - 1); }
+function whereB() { return tau < 1 ? B : between(B, I, tau - 1); }
+
+var body = { strokeColor: black, strokeWidth: 1, fillColor: black, fillOpacity: 0.25, fixed: true, highlight: false, visible: function () { return tau > 0; } };
+var centreA = board.create('point', [function () { return whereA()[0]; }, function () { return whereA()[1]; }], { visible: false });
+var centreB = board.create('point', [function () { return whereB()[0]; }, function () { return whereB()[1]; }], { visible: false });
+
+board.create('circle', [centreA, r], body);
+board.create('circle', [centreB, r], body);
+
+// the words that depend on the weights
+function show(id, text) { document.getElementById(id).textContent = text; }
+
+show('keyA', equal ? 'aH' : 'aL');
+show('keyB', equal ? 'BF' : 'BI');
+show('keyEqual', equal ? 'line joining F and H' : 'were the bodies equal (aH, BF, HF)');
+show('keyLines', equal ? 'AD, Da' : 'AD, Da, HL');
+show('noteSum', equal ? 'aH + BF' : 'aL + 3BI');
+show('qA', w_A + ' × ' + v_A.toFixed(1) + ' = ' + (w_A * v_A).toFixed(1));
+show('qB', w_B + ' × ' + v_B.toFixed(1) + ' = ' + (w_B * v_B).toFixed(1));
+show('qSum', Q_1.toFixed(1));
+
+Array.prototype.forEach.call(document.querySelectorAll('.ifThree'), function (item) { item.hidden = equal; });
+Array.prototype.forEach.call(document.querySelectorAll('.ifEqual'), function (item) { item.hidden = !equal; });
+
+}
+
+// the animation: each of the two intervals lasts 1.5 seconds
+function play() {
+  var start = null;
+  cancelAnimationFrame(timer);
+  function step(now) {
+    if (start === null) { start = now; }
+    tau = Math.min(2, (now - start) / 1500);
+    board.update();
+    if (tau < 2) { timer = requestAnimationFrame(step); }
+  }
+  timer = requestAnimationFrame(step);
+}
+
+function reset() {
+  cancelAnimationFrame(timer);
+  tau = 0;
+  draw();
+}
+
+document.getElementById('play').addEventListener('click', play);
+slider.addEventListener('input', reset);
+document.getElementById('three').addEventListener('change', reset);
+document.getElementById('equal').addEventListener('change', reset);
+
+draw();
+</script>
+</body>
+</html>
