@@ -209,6 +209,11 @@ if (!equal) {
   letter(C, -3, 3, 'C', false, false);
   letter(I, 0, -5.5, 'I', false, false);
   letter(L, 5, 2, 'L', false, false);
+  tick(I);
+  tick(C);
+  // a short stroke across the line of centres at P, running 1.2 to either side, like the points I_1 and I_2 of your file
+function tick(P) {
+  board.create('segment', [[P[0] - 1.2 * k, P[1] + 1.2 * s], [P[0] + 1.2 * k, P[1] - 1.2 * s]], look(black, 0, 1));
 }
 
 // the moving bodies: where A and B are at the time tau; they show only once Play has been pressed
