@@ -27,7 +27,7 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin:
 <div class="columns">
 
 <div class="figure">
-<p class="controls">Obliquity: <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button></p>
+<p class="controls">Obliquity: <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
 <p class="controls"><label><input type="radio" name="weights" id="three" checked> B three times as heavy as A</label> <label style="margin-left: 1em;"><input type="radio" name="weights" id="equal"> A and B equal</label></p>
 <div id="box"></div>
 <p class="legend">
@@ -47,13 +47,21 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin:
 
 <div class="reading">
 <h2>Reading the Figure</h2>
-<ol>
+<ol class="ifThree">
 <li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is DaBF.</li>
 <li>A’s motion resolves into the lateral AD and the perpendicular Da.</li>
-<li class="ifThree">Were the bodies equal, B would take the whole of Da and move to F (BF = Da), while A, keeping AD alone, would move to H (aH = AD), the two departing at right angles.</li>
-<li class="ifThree">With B three times as heavy as A, Mariotte’s rules for direct impact give B only half the perpendicular speed, so it moves to I (BI = IF = Da/2). A retains its lateral component (aH = AD), while its perpendicular component is reversed and halved (aC = Da/2). Combining aH with HL, drawn parallel and equal to aC, gives aL, A’s outgoing speed and direction.</li>
-<li class="ifEqual">The bodies being equal, B takes the whole of Da and moves to F (BF = Da), while A, keeping AD alone, moves to H (aH = AD), the two departing at right angles.</li>
-<li>Taken without regard to direction, the total quantity of motion increases: after impact it is proportional to <span id="noteSum">aL + 3BI</span>, before it to Aa.</li>
+<li>With B three times as heavy as A, Mariotte’s rules for direct impact give B only half the perpendicular speed, so it moves to I (BI = IF = Da/2).</li>
+<li>A retains its lateral component (aH = AD), while its perpendicular component is reversed and halved (aC = Da/2). Combining aH with HL, drawn parallel and equal to aC, gives aL, A’s outgoing speed and direction.</li>
+<li>Taken without regard to direction, the total quantity of motion increases: after impact it is proportional to aL + 3BI, before it to Aa.</li>
+<li>With Aa held fixed, a more grazing encounter (slider to the right) leaves A almost all its speed and changes its direction only slightly, while B still gains more quantity of motion than A loses.</li>
+</ol>
+
+<ol class="ifEqual">
+<li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is DaBF.</li>
+<li>A’s motion resolves into the lateral AD and the perpendicular Da.</li>
+<li>The bodies being equal, B takes the whole of Da and moves to F (BF = Da).</li>
+<li>A, keeping AD alone, moves to H (aH = AD), so that the two depart at right angles.</li>
+<li>Taken without regard to direction, the total quantity of motion increases: after impact it is proportional to aH + BF, before it to Aa.</li>
 <li>With Aa held fixed, a more grazing encounter (slider to the right) leaves A almost all its speed and changes its direction only slightly, while B still gains more quantity of motion than A loses.</li>
 </ol>
 <p>Lengths are proportional to speeds. Each quantity of motion is the product of weight and speed, with A’s weight taken as 1. Mariotte gives no reckoning of the quantity of motion in this proposition (II, prop. III, 213–17); the sums are taken here without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
@@ -122,11 +130,19 @@ function look(colour, dash, width) {
   return { strokeColor: colour, strokeWidth: width, dash: dash, fixed: true, highlight: false };
 }
 
-// the five balls: A, a and B at the moment of impact, and A and B after it
+// the five balls: A, a and B at the moment of impact, and A and B after it;
+// the two after impact are a shade lighter, as in your file
 var centres = [A, a, B, L, I];
-centres.forEach(function (P) { board.create('circle', [P, r], look(black, 0, 1)); });
+var after = look('#1c1c1f', 0, 1);
+after.strokeOpacity = 0.8;
 
-// a line from P to Q, drawn dotted wherever it runs inside a ball
+board.create('circle', [A, r], look(black, 0, 1));
+board.create('circle', [a, r], look(black, 0, 1));
+board.create('circle', [B, r], look(black, 0, 1));
+board.create('circle', [L, r], after);
+board.create('circle', [I, r], after);
+
+// a line from P to Q, drawn dashed wherever it runs inside a ball, as in your file
 function clipped(P, Q, colour, width) {
   var dx = Q[0] - P[0], dy = Q[1] - P[1];
   var length2 = dx * dx + dy * dy;
@@ -146,7 +162,7 @@ function clipped(P, Q, colour, width) {
     if (breaks[i + 1] - breaks[i] < 1e-9) { continue; }
     var middle = at((breaks[i] + breaks[i + 1]) / 2);
     var inside = centres.some(function (M) { return Math.hypot(middle[0] - M[0], middle[1] - M[1]) < r; });
-    board.create('segment', [at(breaks[i]), at(breaks[i + 1])], look(colour, inside ? 1 : 0, inside ? 1.5 : width));
+    board.create('segment', [at(breaks[i]), at(breaks[i + 1])], look(colour, inside ? 2 : 0, inside ? 1 : width));
   }
 }
 
@@ -178,6 +194,7 @@ function letter(P, dx, dy, text, inBall, slanted) {
     anchorX: 'middle',
     anchorY: 'middle',
     fontSize: inBall ? 11 : 15,
+    strokeColor: slanted ? '#1c1c1f' : black,
     cssStyle: 'font-family: inherit;' + (slanted ? ' font-style: italic;' : ''),
     fixed: true, highlight: false
   });
@@ -211,14 +228,13 @@ var centreB = board.create('point', [function () { return whereB()[0]; }, functi
 board.create('circle', [centreA, r], body);
 board.create('circle', [centreB, r], body);
 
-// the words that depend on the weights
+// the words that depend on the weights; the reading notes have one list for each setting
 function show(id, text) { document.getElementById(id).textContent = text; }
 
 show('keyA', equal ? 'aH' : 'aL');
 show('keyB', equal ? 'BF' : 'BI');
 show('keyEqual', equal ? 'line joining F and H' : 'were the bodies equal (aH, BF, HF)');
 show('keyLines', equal ? 'AD, Da' : 'AD, Da, HL');
-show('noteSum', equal ? 'aH + BF' : 'aL + 3BI');
 show('qA', w_A + ' × ' + v_A.toFixed(1) + ' = ' + (w_A * v_A).toFixed(1));
 show('qB', w_B + ' × ' + v_B.toFixed(1) + ' = ' + (w_B * v_B).toFixed(1));
 show('qSum', Q_1.toFixed(1));
@@ -241,16 +257,24 @@ function play() {
   timer = requestAnimationFrame(step);
 }
 
-function reset() {
+// stop the animation, put the bodies back at the start, and redraw
+function rewind() {
   cancelAnimationFrame(timer);
   tau = 0;
   draw();
 }
 
 document.getElementById('play').addEventListener('click', play);
-slider.addEventListener('input', reset);
-document.getElementById('three').addEventListener('change', reset);
-document.getElementById('equal').addEventListener('change', reset);
+
+document.getElementById('reset').addEventListener('click', function () {
+  slider.value = slider.defaultValue;
+  document.getElementById('three').checked = true;
+  rewind();
+});
+
+slider.addEventListener('input', rewind);
+document.getElementById('three').addEventListener('change', rewind);
+document.getElementById('equal').addEventListener('change', rewind);
 
 draw();
 </script>
