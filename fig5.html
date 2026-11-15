@@ -132,15 +132,14 @@ function look(colour, dash, width) {
 
 // the five balls: A, a and B at the moment of impact, and A and B after it;
 // the two after impact are a shade lighter, as in your file
-var centres = [A, a, B, L, I];
+var centres = [A, a, B];
 var after = look('#1c1c1f', 0, 1);
 after.strokeOpacity = 0.8;
 
 board.create('circle', [A, r], look(black, 0, 1));
 board.create('circle', [a, r], look(black, 0, 1));
 board.create('circle', [B, r], look(black, 0, 1));
-board.create('circle', [L, r], after);
-board.create('circle', [I, r], after);
+
 
 // a line from P to Q, drawn dashed wherever it runs inside a ball, as in your file
 function clipped(P, Q, colour, width) {
@@ -203,8 +202,6 @@ function letter(P, dx, dy, text, inBall, slanted) {
 letter(A, 0, 0, 'A', true, false);
 letter(a, 0, 0, 'a', true, false);
 letter(B, 0, 0, 'B', true, false);
-letter(L, 0, 0, 'a', true, true);
-letter(I, 0, 0, 'b', true, true);
 letter(D, 1, 4, 'D', false, false);
 letter(H, -5, 3, 'H', false, false);
 letter(F, -3, -3, 'F', false, false);
