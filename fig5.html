@@ -5,29 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Figure 5</title>
 <style>
-body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; }
+body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; margin: 0; padding: 0 16px; }
+.page { max-width: 1180px; margin: 0 auto; }
+.caption { margin: 1em 0; }
+.columns { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px 40px; }
+.figure { flex: 2 1 520px; min-width: 0; max-width: 700px; }
+.reading { flex: 1 1 340px; min-width: 0; }
+.controls { text-align: center; margin: 0.5em 0; }
+#box { width: 100%; aspect-ratio: 3 / 2; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 14px; margin: 0.5em 0; }
+.quantities { width: 100%; margin: 1em 0; border-collapse: collapse; font-size: 15px; }
+.reading h2 { font-size: 1.15em; margin: 0 0 0.5em; }
+.reading ol { margin: 0; padding-left: 1.4em; }
+.reading li { margin-bottom: 0.4em; }
 </style>
 <script src="jsxgraphcore.js"></script>
 </head>
 <body>
-<p style="max-width: 720px; margin: 1em auto;">Figure 5. Simplified construction of Mariotte’s fig. 22.</p>
-<p style="text-align: center; margin: 0.5em auto;">Obliquity: <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button></p>
-<p style="text-align: center; margin: 0.5em auto;"><label><input type="radio" name="weights" id="three" checked> B three times as heavy as A</label> <label style="margin-left: 1em;"><input type="radio" name="weights" id="equal"> A and B equal</label></p>
-<div id="box" style="max-width: 720px; aspect-ratio: 3 / 2; margin: 0 auto;"></div>
-<p style="max-width: 720px; margin: 0.5em auto; display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 14px;">
+<div class="page">
+<p class="caption"><i>Figure 5</i>. Simplified construction of Mariotte’s fig. 22.</p>
+<div class="columns">
+
+<div class="figure">
+<p class="controls">Obliquity: <input type="range" id="angle" min="10" max="80" value="30"> <span id="angleValue"></span> <button id="play" type="button" style="margin-left: 1em;">Play</button></p>
+<p class="controls"><label><input type="radio" name="weights" id="three" checked> B three times as heavy as A</label> <label style="margin-left: 1em;"><input type="radio" name="weights" id="equal"> A and B equal</label></p>
+<div id="box"></div>
+<p class="legend">
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="2"/></svg> A before impact (Aa)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="2"/></svg> A after impact (<span id="keyA">aL</span>)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="2"/></svg> B after impact (<span id="keyB">BI</span>)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1"/></svg> <span id="keyEqual">were the bodies equal (aH, BF, HF)</span></span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1.5" stroke-dasharray="5 4"/></svg> construction lines (<span id="keyLines">AD, Da, HL</span>)</span>
 </p>
-<table style="max-width: 720px; width: 100%; margin: 1em auto; border-collapse: collapse; font-size: 15px;">
+<table class="quantities">
 <tr style="border-bottom: 1px solid #5a6577;"><th style="text-align: left; font-weight: normal;">Quantity of motion</th><th style="text-align: right; font-weight: normal;">before impact</th><th style="text-align: right; font-weight: normal;">after impact</th></tr>
 <tr><td>A</td><td style="text-align: right;">1 × 100 = 100</td><td style="text-align: right;" id="qA"></td></tr>
 <tr><td>B</td><td style="text-align: right;">at rest: 0</td><td style="text-align: right;" id="qB"></td></tr>
 <tr style="border-top: 1px solid #5a6577;"><td>Sum</td><td style="text-align: right;">100</td><td style="text-align: right;" id="qSum"></td></tr>
 </table>
-<div style="max-width: 720px; margin: 1em auto;">
+</div>
+
+<div class="reading">
+<h2>Reading the Figure</h2>
 <ol>
 <li>A moves along Aa and strikes B, which is at rest. At the moment of impact their centres are at a and B, and the line of centres is DaBF.</li>
 <li>A’s motion resolves into the lateral AD and the perpendicular Da.</li>
@@ -38,6 +57,9 @@ body { font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; }
 <li>With Aa held fixed, a more grazing encounter (slider to the right) leaves A almost all its speed and changes its direction only slightly, while B still gains more quantity of motion than A loses.</li>
 </ol>
 <p>Lengths are proportional to speeds. Each quantity of motion is the product of weight and speed, with A’s weight taken as 1. Mariotte gives no reckoning of the quantity of motion in this proposition (II, prop. III, 213–17); the sums are taken here without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
+</div>
+
+</div>
 </div>
 <script>
 var board;
