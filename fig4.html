@@ -24,8 +24,7 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 </head>
 <body>
 <div class="page">
-<p class="caption"><i>Figure 4</i>. Simplified construction of the upper-left diagram on the plate marked “§ 28. page 68” in Pardies’s <i>Discours du mouvement local</i> (1670), showing an oblique collision with a body initially at rest.</p>
-<div class="columns">
+  <p class="caption"><b><i>Figure 4</i>. Simplified construction of the upper-left diagram on the plate marked “§ 28. page 68” in Pardies’s <i>Discours du mouvement local</i> (1670). The construction abstracts from impediments to motion. Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</b></p><div class="columns">
 
 <div class="figure">
 <p class="controls"><label for="angle" title="Angle between the incoming path and the line of centres">Angle to line of centres:</label> <input type="range" id="angle" min="10" max="80" value="37" aria-describedby="angleHelp"> <output id="angleValue" for="angle"></output> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
@@ -33,24 +32,23 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 <div id="box" role="img" aria-label="Pardies’s construction of oblique impact: the incoming motion Aa, lateral component Ac, perpendicular component ca, and outgoing motions of A and B."></div>
 <p class="legend">
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="2"/></svg> A before impact (Aa)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="1.5" stroke-dasharray="5 4"/></svg> A's lateral component (Ac)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="1.5" stroke-dasharray="5 4"/></svg> A's perpendicular component (ca)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="2"/></svg> A after impact (a<i>a</i>)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="2"/></svg> B after impact (Bb)</span>
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="1.5" stroke-dasharray="5 4"/></svg> lateral component (Ac)</span>
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="1.5" stroke-dasharray="5 4"/></svg> perpendicular component (ca)</span>
 <span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1.5" stroke-dasharray="5 4"/></svg> initial and final separation (AB, <i>a</i>b)</span>
 </p>
 </div>
 
 <div class="reading">
-<h2>Reading the figure</h2>
+<h2>Reading the Figure</h2>
 <ol>
-<li>Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</li>
-<li>Body A moves along Aa towards the stationary body B. At impact, their centres occupy the points labelled a and B. The line of centres is extended beyond a to c, where it meets the perpendicular drawn from A.</li>
+<li>Body A moves along Aa and strikes obliquely body B, initially at rest. At impact, their centres occupy the points labelled a and B; the line of centres is extended in both directions to b and c.</li>
 <li>A’s incoming motion resolves into the lateral component Ac, parallel to the common tangent at contact, and the perpendicular component ca, along the line of centres.</li>
 <li>Under Pardies’s rule, A retains its lateral component and communicates its perpendicular component to B (§28). A therefore continues along a<i>a</i>, equal and parallel to Ac, while B moves along the extended line of centres towards b, with Bb equal to ca.</li>
 <li>Since Ac + ca &gt; Aa, the sum of the bodies’ speeds, which Pardies treats as their “absolute motion” (§§29, 31), increases.</li>
-<li>With Aa held fixed, contact becomes increasingly grazing as the angle between the incoming path and the line of centres approaches 90°. The perpendicular component ca then approaches zero, while the lateral component Ac approaches Aa. Consequently, A’s outgoing speed approaches its incoming speed, and its change of direction tends to zero.</li>
-<li>For equal intervals before and after impact, the initial centre-to-centre separation AB equals the final separation <i>a</i>b, illustrating the conservation of “respective motion” (§29).</li>
+<li>With Aa held fixed, contact becomes increasingly grazing as the angle between the incoming path and the line of centres approaches 90° (slide right). The perpendicular component ca then approaches zero, while the lateral component Ac approaches Aa. Consequently, A’s outgoing speed approaches its incoming speed, and its change of direction tends to zero.</li>
+<li>For equal intervals before and after impact, the initial separation AB equals the final separation <i>a</i>b, illustrating the conservation of “respective motion” (§29).</li>
 </ol>
 <p>On Pardies’s understanding of indifference, bodies offer no intrinsic resistance to being set in motion, whatever their size. He therefore takes the rules to hold <i>in vacuo</i>, “whether the Bodies be Equal or not” (§31).</p>
 </div>
@@ -93,6 +91,26 @@ var B  = [a[0] + 2 * radius * n[0], a[1] + 2 * radius * n[1]];
 var ap = [a[0] + s_l * t[0], a[1] + s_l * t[1]];
 var b  = [B[0] + s_n * n[0], B[1] + s_n * n[1]];
 var c  = [a[0] - s_n * n[0], a[1] - s_n * n[1]];
+var ys = [A[1], a[1], B[1], ap[1], b[1], c[1]];
+var drawingTop = Math.max.apply(null, ys) + radius + 4;
+var drawingBottom = Math.min.apply(null, ys) - radius - 4;
+var drawingHeight = drawingTop - drawingBottom;
+
+var box = document.getElementById('box');
+box.style.height = 'auto';
+box.style.aspectRatio = '100 / ' + drawingHeight;
+
+board.resizeContainer(
+  box.clientWidth,
+  box.clientWidth * drawingHeight / 100,
+  true
+);
+
+board.setBoundingBox(
+  [-48, drawingTop, 52, drawingBottom],
+  true
+);
+
 
 // colours
 var black  = 'black';     // A before impact
