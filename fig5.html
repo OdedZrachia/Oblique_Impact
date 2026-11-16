@@ -29,24 +29,23 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 </head>
 <body>
 <div class="page">
-<p class="caption"><i>Figure 5</i>. Simplified construction of fig. 22 from the third edition of Mariotte’s <i>Traitté de la percussion</i> (1684). <span id="weightCaption">The bodies’ weights are in the ratio A∶B = 1∶3.</span></p>
-<div class="columns">
-
+  <p class="caption"><b><i>Figure 5</i>. Simplified construction of fig. 22 in the third edition of Mariotte’s <i>Traitté de la percussion</i> (1684). The construction considers balls without rolling, assumes perfect <i>ressort</i>, and abstracts from impediments to motion. Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds. <span id="weightCaption">The bodies’ weights are in the ratio A∶B = 1∶3.</span></b></p>
+  <div class="columns">
 <div class="figure">
 <p class="controls"><label for="angle" title="Angle between the incoming path and the line of centres">Angle to line of centres:</label> <input type="range" id="angle" min="10" max="80" value="30" aria-describedby="angleHint"> <output id="angleValue" for="angle"></output> <button id="play" type="button" style="margin-left: 1em;">Play</button> <button id="reset" type="button">Reset</button></p>
 <p class="control-note" id="angleHint">0°: direct impact; 90°: grazing limit. Move right for more grazing contact.</p>
 <p class="controls"><label><input type="radio" name="weights" id="three" checked> B three times as heavy as A</label> <label style="margin-left: 1em;"><input type="radio" name="weights" id="equal"> A and B equal</label></p>
 <div id="box" role="img" aria-label="Mariotte’s construction of oblique impact, showing A’s incoming and outgoing motions and B’s outgoing motion."></div>
 <p class="legend">
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="2"/></svg> A before impact (Aa)</span>
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="2"/></svg> A after impact (<span id="keyA">aL</span>)</span>
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="2"/></svg> B after impact (<span id="keyB">BI</span>)</span>
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#1b57a8" stroke-width="1.5" stroke-dasharray="5 4"/></svg> lateral component (AD)</span>
-<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#b4560a" stroke-width="1.5" stroke-dasharray="5 4"/></svg> perpendicular component (Da)</span>
-<span id="keyHL"><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="#5a6577" stroke-width="1.5" stroke-dasharray="5 4"/></svg> construction line (HL)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="1.5"/></svg> A before impact (Aa)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line id="swatchAD" x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="1" stroke-dasharray="2 2"/></svg> A's lateral component (AD)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line id="swatchDa" x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="1" stroke-dasharray="2 2"/></svg> A's perpendicular component (Da)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line id="swatchA" x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="1.5"/></svg> A after impact (<span id="keyA">aL</span>)</span>
+<span><svg width="34" height="8" aria-hidden="true"><line id="swatchB" x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="1.5"/></svg> B after impact (<span id="keyB">BI</span>)</span>
+<span id="keyHL"><svg width="34" height="8" aria-hidden="true"><line id="swatchHL" x1="1" y1="4" x2="33" y2="4" stroke="black" stroke-width="1" stroke-dasharray="2 2"/></svg> construction line (HL)</span>
 </p>
 <table class="quantities">
-<caption>Quantity of motion, reckoned without regard to direction</caption>
+<caption><u>Quantities of motion:</u></caption>
 <thead><tr><th scope="col">Body</th><th scope="col">Before impact</th><th scope="col">After impact</th></tr></thead>
 <tbody>
 <tr><th scope="row">A</th><td>1 × 100 = 100</td><td id="qA"></td></tr>
@@ -56,31 +55,29 @@ body { font-family: serif; line-height: 1.5; margin: 0; padding: 0 16px; }
 </tbody>
 </table>
 <p style="font-size: 14px;">A’s weight is taken as 1 and its incoming speed as 100. Values are rounded; totals and the surplus are calculated before rounding.</p>
+<p>Each body’s quantity of motion is the product of weight and speed. The calculator applies Mariotte’s rules in II, prop. III, 213–17. The quantities are added without regard to direction, as in his direct-impact example of a lighter body striking a heavier one (I, prop. XXVI, consec. II, 174–75).</p>
 </div>
 
 <div class="reading">
-<h2>Reading the figure</h2>
+<h2>Reading the Figure</h2>
 <ol class="ifThree">
-<li>Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</li>
-<li>The lighter body A moves along Aa and strikes obliquely the heavier body B, initially at rest. At impact, their centres occupy the points labelled a and B; the line of centres is extended through D and F.</li>
+<li>The lighter body A moves along Aa and strikes obliquely the heavier body B, initially at rest. At impact, their centres occupy the points labelled a and B; the line of centres is extended in both directions to D and F.</li>
 <li>A’s incoming motion resolves into the lateral component AD, parallel to the common tangent at contact, and the perpendicular component Da, along the line of centres, forming the right-angled triangle ADa.</li>
 <li>Were the bodies equal, B would move to F (BF = Da), while A would move to H (aH = AD).</li>
 <li>With B three times as heavy as A, Mariotte’s rules for direct impact give B half the perpendicular speed, so it moves to I (BI = IF = Da/2).</li>
 <li>A retains its lateral component (aH = AD), while its perpendicular component is reversed and halved (aC = Da/2). Combining aH with HL, drawn parallel and equal to aC, gives aL, which represents A’s outgoing speed and direction. As the hypotenuse of the right-angled triangle aHL, aL exceeds aH = AD.</li>
 <li>For this weight ratio, the total quantity of motion, reckoned without regard to direction, is proportional to Aa before impact and to aL + 3BI afterwards. Both terms of the outgoing sum exceed the corresponding sides of the incoming triangle ADa: aL exceeds AD, and 3BI = 3Da/2 exceeds Da. Their sum therefore exceeds AD + Da, which itself exceeds the hypotenuse Aa. B therefore gains more quantity of motion than A loses.</li>
-<li>Increasingly grazing contact brings the incoming path closer to a right angle with the line of centres. Da and HL then tend to zero, while AD = aH approaches the fixed incoming length Aa. A thus retains almost all its speed, and its deflection tends to zero. The surplus remains positive for every oblique impact but tends to zero in the grazing limit.</li>
+<li>Increasingly grazing contact brings the incoming path closer to a right angle with the line of centres (slide right). Da and HL then tend to zero, while AD = aH approaches the fixed incoming length Aa. A thus retains almost all its speed, and its deflection tends to zero. The surplus remains positive for every oblique impact but tends to zero in the grazing limit.</li>
 </ol>
 
 <ol class="ifEqual">
-<li>Segments representing motion correspond to distances traversed in equal times and are therefore proportional to speeds.</li>
-<li>Body A moves along Aa and strikes obliquely body B, initially at rest. At impact, their centres occupy the points labelled a and B; the line of centres is extended through D and F.</li>
+<li>Body A moves along Aa and strikes obliquely body B, initially at rest. At impact, their centres occupy the points labelled a and B; the line of centres is extended in both directions to D and F.</li>
 <li>A’s incoming motion resolves into the lateral component AD, parallel to the common tangent at contact, and the perpendicular component Da, along the line of centres, forming the right-angled triangle ADa.</li>
 <li>The bodies being equal, B takes the whole of Da and moves to F (BF = Da).</li>
 <li>A, keeping AD alone, moves to H (aH = AD), so that the two depart at right angles.</li>
 <li>With equal weights, the total quantity of motion, reckoned without regard to direction, is proportional to Aa before impact and to aH + BF = AD + Da afterwards. These two sides of the right-angled triangle ADa together exceed its hypotenuse Aa, so the total increases. B therefore gains more quantity of motion than A loses.</li>
-<li>Increasingly grazing contact brings the incoming path closer to a right angle with the line of centres. Da then tends to zero, while AD = aH approaches the fixed incoming length Aa. A thus retains almost all its speed, and its deflection tends to zero. The surplus remains positive for every oblique impact but tends to zero in the grazing limit.</li>
+<li>Increasingly grazing contact brings the incoming path closer to a right angle with the line of centres (slide right). Da then tends to zero, while AD = aH approaches the fixed incoming length Aa. A thus retains almost all its speed, and its deflection tends to zero. The surplus remains positive for every oblique impact but tends to zero in the grazing limit.</li>
 </ol>
-<p>Each body’s quantity of motion is the product of weight and speed. The calculator applies Mariotte’s rules in II, prop. III, 213–17; its numerical values are supplied for this reconstruction. The quantities are added without regard to direction, as in his numerical examples for direct impact (I, prop. XXVI, consec. II, 174–75).</p>
 </div>
 
 </div>
@@ -97,27 +94,30 @@ function draw() {
 if (board) { JXG.JSXGraph.freeBoard(board); }
 
 board = JXG.JSXGraph.initBoard('box', {
-  boundingbox: [-117, 84, 110, -68],
+  boundingbox: [-112, 84, 117, -69],
   keepAspectRatio: true,
   axis: false,
   showCopyright: false,
-  showNavigation: false
+  showNavigation: false,
+  pan: { enabled: false },
+  zoom: { enabled: false }
 });
 
 document.getElementById('angleValue').textContent = slider.value + '°';
 
-// the numbers of your construction, with your names
 var equal = document.getElementById('equal').checked;
+var coloured = true;
+var showM = false;
 var w_A = 1;                    // weight of A
 var w_B = equal ? 1 : 3;        // weight of B
 var u = 100;                    // speed of A before impact
-var theta = 90 - slider.value;  // your angle, measured from the tangent; the slider gives the angle from the line of centres
+var theta = 90 - slider.value;  // angle, measured from the tangent; the slider gives the angle from the line of centres
 var rad = theta * Math.PI / 180;
 var s = Math.sin(rad);
 var k = Math.cos(rad);
 var u_n = u * s;                // perpendicular component, Da
 var u_t = u * k;                // lateral component, AD
-var r = 5;                    // ball radius
+var r = 2.4;                  // schematic ball radius 
 var n_A = u_n * (w_A - w_B) / (w_A + w_B);   // perpendicular speed of A after impact (negative when reversed)
 var n_B = 2 * w_A * u_n / (w_A + w_B);       // speed of B after impact
 var v_A = Math.sqrt(u_t * u_t + n_A * n_A);  // speed of A after impact
@@ -135,104 +135,86 @@ var F = [B[0] - u_n * s, B[1] - u_n * k];
 var I = [B[0] - n_B * s, B[1] - n_B * k];
 var C = [a[0] - n_A * s, a[1] - n_A * k];
 var L = [H[0] - n_A * s, H[1] - n_A * k];
+var G = [A[0] - u_n * s, A[1] - u_n * k];
+var M = [H[0] + 0.12 * (F[0] - H[0]), H[1] + 0.12 * (F[1] - H[1])];
 
 // colours
 var black  = 'black';     // A before impact
-var blue   = '#1b57a8';   // A after impact
-var orange = '#b4560a';   // B after impact
-var grey   = '#5a6577';   // the equal case, and the construction lines
+var blue   = coloured ? '#1b57a8' : black;   // A after impact
+var orange = coloured ? '#b4560a' : black;   // B after impact
+var grey   = coloured ? '#5a6577' : black;   // reference paths and construction lines
 
-// line styles: 0 solid, 1 dotted, 2 dashed
+// JSXGraph dash 1 uses a short 2px/2px dash.
 function look(colour, dash, width) {
-  return { strokeColor: colour, strokeWidth: width, dash: dash, fixed: true, highlight: false };
+  return { strokeColor: colour, strokeWidth: width, dash: dash, fixed: true, highlight: false, layer: 1 };
 }
 
-// the five balls: A, a and B at the moment of impact, and A and B after it;
-// the two after impact are a shade lighter, as in your file
-var centres = [A, a, B];
-var after = look('#1c1c1f', 0, 1);
-after.strokeOpacity = 0.8;
+// Geometry below unfilled circles; labels and ticks above.
+[A, a, B].forEach(function (P) {
+  board.create('circle', [P, r], Object.assign(look(black, 0, 1), { fillOpacity: 0, layer: 5 }));
+});
 
-board.create('circle', [A, r], look(black, 0, 1));
-board.create('circle', [a, r], look(black, 0, 1));
-board.create('circle', [B, r], look(black, 0, 1));
-
-
-// a line from P to Q, drawn dashed wherever it runs inside a ball, as in your file
-function clipped(P, Q, colour, width) {
-  var dx = Q[0] - P[0], dy = Q[1] - P[1];
-  var length2 = dx * dx + dy * dy;
-  if (length2 < 1e-9) { return; }
-  function at(x) { return [P[0] + x * dx, P[1] + x * dy]; }
-  var breaks = [0, 1];
-  centres.forEach(function (M) {
-    var p = ((M[0] - P[0]) * dx + (M[1] - P[1]) * dy) / length2;
-    var d = r * r / length2 - ((M[0] - P[0]) * (M[0] - P[0]) + (M[1] - P[1]) * (M[1] - P[1])) / length2 + p * p;
-    if (d > 0) {
-      breaks.push(Math.min(1, Math.max(0, p - Math.sqrt(d))));
-      breaks.push(Math.min(1, Math.max(0, p + Math.sqrt(d))));
-    }
-  });
-  breaks.sort(function (x, y) { return x - y; });
-  for (var i = 0; i < breaks.length - 1; i++) {
-    if (breaks[i + 1] - breaks[i] < 1e-9) { continue; }
-    var middle = at((breaks[i] + breaks[i + 1]) / 2);
-    var inside = centres.some(function (M) { return Math.hypot(middle[0] - M[0], middle[1] - M[1]) < r; });
-    board.create('segment', [at(breaks[i]), at(breaks[i + 1])], look(colour, inside ? 2 : 0, inside ? 1 : width));
-  }
+// Solid paths continue inside the ball outlines.
+function segment(P, Q, colour, dash, width, id) {
+  var style = look(colour, dash, width);
+  if (id) { style.id = id; }
+  return board.create('segment', [P, Q], style);
 }
 
 // A before impact, and the line of centres at the moment of impact
-clipped(A, a, black, 2);
-clipped(B, a, grey, 1);
+segment(A, a, black, 0, 1.5, 'incomingA');
+segment(B, a, grey, 0, 1.5);
 
 if (equal) {
-  clipped(a, H, blue, 2);      // A after impact
-  clipped(B, F, orange, 2);    // B after impact
+  segment(a, H, blue, 0, 1.5, 'outgoingA');
+  segment(B, F, orange, 0, 1.5, 'outgoingB');
 } else {
-  clipped(a, H, grey, 1);      // A, were the bodies equal
-  clipped(I, F, grey, 1);      // B, were the bodies equal: the rest of BF beyond I
-  clipped(a, L, blue, 2);      // A after impact
-  clipped(B, I, orange, 2);    // B after impact
+  segment(a, H, grey, 0, 1.5);
+  segment(I, F, grey, 0, 1.5);
+  segment(a, L, blue, 0, 1.5, 'outgoingA');
+  segment(B, I, orange, 0, 1.5, 'outgoingB');
 }
-clipped(F, H, grey, 1);        // the line joining F and H
+segment(F, H, grey, 0, 1.5);
 
 // the construction lines
-board.create('segment', [a, D], look(orange, 2, 1.5));   // perpendicular component
-board.create('segment', [A, D], look(blue, 2, 1.5));     // lateral component
+segment(a, D, orange, 1, 1);   // perpendicular component
+segment(A, D, blue, 1, 1);     // lateral component
+if (showM) { segment(a, M, grey, 1, 1); }
 if (!equal) {
-  board.create('segment', [H, L], look(grey, 2, 1.5));   // A's reversed perpendicular motion, joined to aH
+  segment(H, L, grey, 1, 1);   // A's reversed perpendicular motion, joined to aH
 }
 
 // the labels
-function letter(P, dx, dy, text, inBall, slanted) {
+function letter(P, dx, dy, text) {
   board.create('text', [P[0] + dx, P[1] + dy, text], {
     anchorX: 'middle',
     anchorY: 'middle',
-    fontSize: inBall ? 16 : 15,
-    strokeColor: slanted ? '#1c1c1f' : black,
-    cssStyle: 'font-family: inherit;' + (slanted ? ' font-style: italic;' : ''),
-    fixed: true, highlight: false
+    fontSize: 16,
+    strokeColor: text === 'a' ? '#1c1c1f' : black,
+    cssStyle: 'font-family: ' + (text === 'a' ? 'sans-serif' : 'serif') + ';',
+    fixed: true, highlight: false, layer: 7
   });
 }
 
-letter(A, 0, 0, 'A', true, false);
-letter(a, 0, 0, 'a', true, false);
-letter(B, 0, 0, 'B', true, false);
-letter(D, 1, 4, 'D', false, false);
-letter(H, -5, 3, 'H', false, false);
-letter(F, -3, -3, 'F', false, false);
+letter(A, 6, 0, 'A');
+letter(a, 3, 5, 'a');
+letter(B, 0, -6, 'B');
+letter(D, 1, 4, 'D');
+letter(H, -5, 3, 'H');
+letter(F, -3, -3, 'F');
+if (showM) { letter(M, -5, 1, 'M'); }
 if (!equal) {
-  letter(C, -3, 3, 'C', false, false);
-  letter(I, 0, -5.5, 'I', false, false);
-  letter(L, 5, 2, 'L', false, false);
+  letter(C, -3, 3, 'C');
+  letter(I, 0, -5.5, 'I');
+  letter(L, 5, 2, 'L');
   tick(I);
   tick(C);
   
 }
-    // a short stroke across the line of centres at P, running 1.2 to either side, like the points I_1 and I_2 of your file
+    // a short stroke across the line of centres at P, running 1.2 to either side
 function tick(P) {
-  board.create('segment', [[P[0] - 1.2 * k, P[1] + 1.2 * s], [P[0] + 1.2 * k, P[1] - 1.2 * s]], look(black, 0, 1));
+  board.create('segment', [[P[0] - 1.2 * k, P[1] + 1.2 * s], [P[0] + 1.2 * k, P[1] - 1.2 * s]],
+    Object.assign(look('#1c1c1f', 0, 2.5), { strokeOpacity: 0.8, layer: 7 }));
 }
 // the moving bodies: where A and B are at the time tau; they show only once Play has been pressed
 function between(P, Q, x) {
@@ -241,7 +223,7 @@ function between(P, Q, x) {
 function whereA() { return tau < 1 ? between(A, a, tau) : between(a, L, tau - 1); }
 function whereB() { return tau < 1 ? B : between(B, I, tau - 1); }
 
-var body = { strokeColor: black, strokeWidth: 1, fillColor: black, fillOpacity: 0.25, fixed: true, highlight: false, visible: function () { return tau > 0; } };
+var body = { strokeColor: black, strokeWidth: 1, fillColor: black, fillOpacity: 0.25, fixed: true, highlight: false, layer: 5, visible: function () { return tau > 0; } };
 var centreA = board.create('point', [function () { return whereA()[0]; }, function () { return whereA()[1]; }], { visible: false });
 var centreB = board.create('point', [function () { return whereB()[0]; }, function () { return whereB()[1]; }], { visible: false });
 
@@ -253,6 +235,9 @@ function show(id, text) { document.getElementById(id).textContent = text; }
 
 show('keyA', equal ? 'aH' : 'aL');
 show('keyB', equal ? 'BF' : 'BI');
+[['swatchA', blue], ['swatchB', orange], ['swatchAD', blue], ['swatchDa', orange], ['swatchHL', grey]].forEach(function (entry) {
+  document.getElementById(entry[0]).setAttribute('stroke', entry[1]);
+});
 show('weightCaption', equal ? 'The bodies’ weights are equal: A∶B = 1∶1.' : 'The bodies’ weights are in the ratio A∶B = 1∶3.');
 document.getElementById('keyHL').hidden = equal;
 show('qA', w_A + ' × ' + v_A.toFixed(1) + ' ≈ ' + (w_A * v_A).toFixed(1));
