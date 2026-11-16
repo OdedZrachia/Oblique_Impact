@@ -2,7 +2,10 @@
 
 Interactive reconstructions of oblique-impact constructions in
 Ignace-Gaston Pardies’s *Discours du mouvement local* (1670)
-and Edme Mariotte’s *Traitté de la percussion* (1684). These correspond to figures 4 and 6 in my PhD disseration on the French Jesuit Gabriel Daniel.
+and Edme Mariotte’s *Traitté de la percussion* (1684).
+These correspond to Figures 4 and 5 in Oded Zrachia’s PhD
+dissertation on the French Jesuit Gabriel Daniel
+(Tel Aviv University, in preparation).
 
 ## Interactive figures
 
@@ -10,13 +13,12 @@ and Edme Mariotte’s *Traitté de la percussion* (1684). These correspond to fi
 - [Figure 5 — Mariotte](https://odedzrachia.github.io/Oblique_Impact/fig5.html)
 
 Both figures allow the angle of impact to be varied and include
-an animation and an explanation of the construction.
+an animation and explanation of the construction.
 
 Figure 4 illustrates Pardies’s increase in the sum of the bodies’
 speeds and conservation of “respective motion.”
 
-Figure 5 presents Mariotte’s cases of equal bodies and of a body
-striking another three times as heavy. Its calculator reckons each
+Figure 5 presents two cases of oblique impact treated by Mariotte: one between equal bodies and another in which the struck body is three times as heavy as the striker. Its calculator reckons each
 body’s quantity of motion as weight multiplied by speed and adds
 these quantities without regard to direction.
 
