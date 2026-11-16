@@ -9,8 +9,8 @@ dissertation on the French Jesuit Gabriel Daniel
 
 ## Interactive figures
 
-- [Figure 4 — Pardies](https://odedzrachia.github.io/Oblique_Impact/fig4.html)
-- [Figure 5 — Mariotte](https://odedzrachia.github.io/Oblique_Impact/fig5.html)
+- [Figure 4 - Pardies](https://odedzrachia.github.io/Oblique_Impact/fig4.html)
+- [Figure 5 - Mariotte](https://odedzrachia.github.io/Oblique_Impact/fig5.html)
 
 Both figures allow the angle of impact to be varied and include
 an animation and an explanation of the construction.
