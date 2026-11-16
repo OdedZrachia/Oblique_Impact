@@ -2,7 +2,7 @@
 
 Interactive reconstructions of oblique-impact constructions in
 Ignace-Gaston Pardies’s *Discours du mouvement local* (1670)
-and Edme Mariotte’s *Traitté de la percussion* (1684).
+and Edme Mariotte’s *Traitté de la percussion* (1684). These correspond to figures 4 and 6 in my PhD disseration on the French Jesuit Gabriel Daniel.
 
 ## Interactive figures
 
