@@ -43,6 +43,12 @@ as the HTML files. No installation or build step is required.
 
 ## Archive and citation
 
+Releases of these interactive reconstructions are archived on
+[Zenodo](https://doi.org/10.5281/zenodo.24244460).
+
+Please cite the specific version used. Each archived version’s
+Zenodo record provides its DOI and a suggested citation.
+
 ## Implementation
 
 The figures use HTML, CSS, JavaScript, and
