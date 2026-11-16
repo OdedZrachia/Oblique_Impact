@@ -13,12 +13,14 @@ dissertation on the French Jesuit Gabriel Daniel
 - [Figure 5 — Mariotte](https://odedzrachia.github.io/Oblique_Impact/fig5.html)
 
 Both figures allow the angle of impact to be varied and include
-an animation and explanation of the construction.
+an animation and an explanation of the construction.
 
-Figure 4 illustrates Pardies’s increase in the sum of the bodies’
-speeds and conservation of “respective motion.”
+Figure 4 illustrates how, under Pardies’s rules, the sum of
+the bodies’ speeds increases while “respective motion” is conserved.
 
-Figure 5 presents two cases of oblique impact treated by Mariotte: one between equal bodies and another in which the struck body is three times as heavy as the striker. Its calculator reckons each
+Figure 5 presents two cases of oblique impact treated by Mariotte:
+one between equal bodies and another in which the struck body is
+three times as heavy as the striker. Its calculator reckons each
 body’s quantity of motion as weight multiplied by speed and adds
 these quantities without regard to direction.
 
@@ -39,7 +41,23 @@ Download the repository and open `fig4.html` or `fig5.html`
 in a web browser. Keep `jsxgraphcore.js` in the same folder
 as the HTML files. No installation or build step is required.
 
+## Archive and citation
+
 ## Implementation
 
 The figures use HTML, CSS, JavaScript, and
 [JSXGraph](https://jsxgraph.org/), version 1.11.1.
+
+## Licence
+
+The original explanatory text and reconstructed figures by
+Oded Zrachia are licensed under
+[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+The original code is licensed under the
+[MIT Licence](https://opensource.org/license/mit).
+
+The bundled JSXGraph library (`jsxgraphcore.js`) retains its
+own copyright notices and is available under either the
+MIT Licence or the GNU Lesser General Public Licence,
+version 3 or later.
