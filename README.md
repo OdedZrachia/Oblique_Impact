@@ -54,8 +54,7 @@ The original explanatory text and reconstructed figures by
 Oded Zrachia are licensed under
 [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 
-The original code is licensed under the
-[MIT Licence](https://opensource.org/license/mit).
+The original code is licensed under the [MIT Licence](LICENSE).
 
 The bundled JSXGraph library (`jsxgraphcore.js`) retains its
 own copyright notices and is available under either the
